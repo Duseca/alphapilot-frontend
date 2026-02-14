@@ -5,6 +5,7 @@ import 'package:alpha_pilot/generated/assets.dart';
 import 'package:alpha_pilot/view/widget/Icon_title_subtitle.dart';
 import 'package:alpha_pilot/view/widget/icon_text_row.dart';
 import 'package:alpha_pilot/view/widget/my_text_widget.dart';
+import 'package:alpha_pilot/view/widget/simple_app_bar.dart';
 import 'package:alpha_pilot/view/widget/sos_card.dart';
 import 'package:alpha_pilot/view/widget/trans_container.dart';
 import 'package:alpha_pilot/view/widget/two_text_column.dart';
@@ -50,15 +51,16 @@ class SosList extends StatelessWidget {
     ];
 
     return Scaffold(
+      appBar: simpleAppBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(height: 30),
+          //    SizedBox(height: 30),
           IconTitleSubtitle(
             padEnds: 10,
             topPadimg: 5,
             mhoriz: 30,
-            mvertical: 30,
+            mvertical: 10,
             padVertical: 16,
             decoration: roundedsr(color: kQuaternaryColor),
             iconheight: 16,
@@ -73,6 +75,7 @@ class SosList extends StatelessWidget {
             subtitle: 'Sorted by priority',
             size2: 10,
           ),
+          SizedBox(height: 20),
           Expanded(
             child: ListView(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),

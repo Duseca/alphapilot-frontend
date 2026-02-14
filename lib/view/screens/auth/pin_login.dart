@@ -5,6 +5,7 @@ import 'package:alpha_pilot/view/widget/common_image_view_widget.dart';
 import 'package:alpha_pilot/view/widget/custom_keypad.dart';
 import 'package:alpha_pilot/view/widget/gradient_btn.dart';
 import 'package:alpha_pilot/view/widget/my_text_widget.dart';
+import 'package:alpha_pilot/view/widget/simple_app_bar.dart';
 import 'package:alpha_pilot/view/widget/two_text_column.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ class PinLogin extends StatelessWidget {
     final controller = Get.put(PinLoginController());
 
     return Scaffold(
+      appBar: simpleAppBar(),
       //appBar: simpleAppBar(title: ''),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -26,10 +28,10 @@ class PinLogin extends StatelessWidget {
           Expanded(
             child: ListView(
               shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               physics: const BouncingScrollPhysics(),
               children: [
-                SizedBox(height: 30),
+                //s   SizedBox(height: 30),
                 Center(
                   child: CommonImageView(
                     imagePath: Assets.imagesLogo,

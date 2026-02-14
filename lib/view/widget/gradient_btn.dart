@@ -14,7 +14,7 @@ class GradientButton extends StatelessWidget {
   final double borderRadius;
   final Color borderColor;
   final bool? hasgrad, hasshadow;
-  final Color? color;
+  final Color? color, fontcolor;
   final double borderWidth;
   final Widget? child;
   const GradientButton({
@@ -24,7 +24,7 @@ class GradientButton extends StatelessWidget {
     this.onTap,
     this.color,
     this.hasgrad = true,
-    this.fontSize = 18,
+    this.fontSize = 26,
     this.fontWeight = FontWeight.w500,
     this.padding = const EdgeInsets.all(16),
     this.borderRadius = 100,
@@ -32,6 +32,7 @@ class GradientButton extends StatelessWidget {
     this.borderWidth = 3,
     this.child,
     this.hasshadow = true,
+    this.fontcolor,
   });
 
   @override
@@ -80,9 +81,9 @@ class GradientButton extends StatelessWidget {
             Center(
               child: MyText(
                 text: text ?? '',
-                size: 26,
-                weight: wmedium,
-                color: kQuaternaryColor,
+                size: fontSize ?? 26,
+                weight: fontWeight ?? wmedium,
+                color: fontcolor ?? kQuaternaryColor,
               ),
             ),
       ),

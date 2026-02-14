@@ -2,10 +2,12 @@ import 'package:alpha_pilot/const/app_colors.dart';
 import 'package:alpha_pilot/const/app_sizes.dart';
 import 'package:alpha_pilot/generated/assets.dart';
 import 'package:alpha_pilot/view/screens/auth/pin_login.dart';
+import 'package:alpha_pilot/view/screens/client_module/auth/login.dart';
 import 'package:alpha_pilot/view/widget/common_image_view_widget.dart';
 import 'package:alpha_pilot/view/widget/gradient_btn.dart';
 import 'package:alpha_pilot/view/widget/my_gradient_text.dart';
 import 'package:alpha_pilot/view/widget/my_text_widget.dart';
+import 'package:alpha_pilot/view/widget/simple_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
@@ -61,7 +63,9 @@ class RoleSelection extends StatelessWidget {
                 GradientButton(
                   text: 'CLIENT SPACE',
                   gradient: gradgreen,
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => Login());
+                  },
                 ),
 
                 Padding(

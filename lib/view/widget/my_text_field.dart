@@ -9,11 +9,10 @@
 import 'package:alpha_pilot/const/app_colors.dart';
 import 'package:alpha_pilot/const/app_fonts.dart';
 import 'package:alpha_pilot/const/app_sizes.dart';
-import 'package:country_code_picker/country_code_picker.dart';
+import 'package:alpha_pilot/view/widget/my_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
-import 'package:alpha_pilot/view/widgets/my_text_widget.dart';
 
 // ignore: must_be_immutable
 class MyTextField extends StatefulWidget {
@@ -56,6 +55,7 @@ class MyTextField extends StatefulWidget {
     this.isoptional = false,
     this.hintsize,
     this.hintweight,
+    this.labelsuffix,
     this.fbordercolor,
     this.focusedLabelColor,
     this.useCountryCodePicker = false,
@@ -79,7 +79,7 @@ class MyTextField extends StatefulWidget {
   double? marginBottom;
   int? maxLines;
   double? labelSize, radius, padends, hintsize, toppads;
-  Widget? suffixIcon, counter;
+  Widget? suffixIcon, counter, labelsuffix;
   Widget? prefixIcon;
   FloatingLabelBehavior? floatingLabelBehavior;
   Color? filledColor,
@@ -150,20 +150,23 @@ class _MyTextField2State extends State<MyTextField> {
                               MyText(
                                 // paddingLeft: 10,
                                 text: widget.label?.tr ?? '',
-                                size: widget.labelSize ?? 15,
+                                size: widget.labelSize ?? 18,
                                 paddingBottom: widget.padends ?? 8,
                                 weight: widget.labelWeight ?? FontWeight.w400,
                                 color: isFocused
                                     ? widget.focusedLabelColor ?? kTertiaryColor
-                                    : widget.labelColor ?? kGreyColor,
+                                    : widget.labelColor ?? kBlackColor,
                               ),
                               if (widget.isoptional == true)
                                 MyText(
                                   text: ' (optional)',
                                   size: 12,
                                   color: kGreyColor,
-                                  paddingBottom: 8,
+                                  //   paddingBottom: 8,
                                 ),
+
+                              Spacer(),
+                              widget.labelsuffix ?? SizedBox(),
                             ],
                           );
                         },
@@ -224,17 +227,17 @@ class _MyTextField2State extends State<MyTextField> {
                                       textDirection: TextDirection.ltr,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        CountryCodePicker(
-                                          textOverflow: TextOverflow.ellipsis,
-                                          alignLeft: false,
-                                          showFlag: false,
-                                          padding: EdgeInsets.all(0),
-                                          showDropDownButton: false,
-                                          textStyle: TextStyle(
-                                            fontFamily: SFPRO,
-                                            color: kSecondaryColor,
-                                          ),
-                                        ),
+                                        // CountryCodePicker(
+                                        //   textOverflow: TextOverflow.ellipsis,
+                                        //   alignLeft: false,
+                                        //   showFlag: false,
+                                        //   padding: EdgeInsets.all(0),
+                                        //   showDropDownButton: false,
+                                        //   textStyle: TextStyle(
+                                        //     fontFamily: SFPRO,
+                                        //     color: kSecondaryColor,
+                                        //   ),
+                                        // ),
                                       ],
                                     )
                                   : widget.prefixIcon,
@@ -258,7 +261,7 @@ class _MyTextField2State extends State<MyTextField> {
 
                             contentPadding: EdgeInsets.symmetric(
                               horizontal: widget.padends ?? 15,
-                              vertical: widget.toppads ?? 10,
+                              vertical: widget.toppads ?? 16,
                             ),
 
                             suffixStyle: TextStyle(
@@ -282,8 +285,8 @@ class _MyTextField2State extends State<MyTextField> {
 
                             filled: true,
                             fillColor: _focusNotifier.value
-                                ? widget.focusedFilledColor ?? kSecondaryColor2
-                                : widget.filledColor ?? kSecondaryColor2,
+                                ? widget.focusedFilledColor ?? kQuaternaryColor
+                                : widget.filledColor ?? kQuaternaryColor,
 
                             enabledBorder: widget.useOutlinedBorder == true
                                 ? OutlineInputBorder(
@@ -291,7 +294,7 @@ class _MyTextField2State extends State<MyTextField> {
                                     borderSide: BorderSide(
                                       color:
                                           widget.bordercolor ??
-                                          kSecondaryColor2,
+                                          Color(0xff666666).withOpacity(0.35),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(

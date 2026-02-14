@@ -7,6 +7,7 @@ import 'package:alpha_pilot/view/widget/common_image_view_widget.dart';
 import 'package:alpha_pilot/view/widget/gradient_btn.dart';
 import 'package:alpha_pilot/view/widget/icon_text_row.dart';
 import 'package:alpha_pilot/view/widget/my_text_widget.dart';
+import 'package:alpha_pilot/view/widget/simple_app_bar.dart';
 import 'package:alpha_pilot/view/widget/sos_card.dart';
 import 'package:alpha_pilot/view/widget/trans_container.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class SosDetailScreen extends StatelessWidget {
     ];
 
     return Scaffold(
+      //  appBar: simpleAppBar(bgColor: kPrimaryColor),
       body: SafeArea(
         child: Column(
           children: [
@@ -53,8 +55,26 @@ class SosDetailScreen extends StatelessWidget {
                   ),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 0,
                   children: [
-                    SizedBox(height: 40),
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Container(
+                        margin: EdgeInsets.only(left: 20),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: kBlackColor.withOpacity(0.2),
+                              blurRadius: 10,
+                            ),
+                          ],
+                        ),
+                        child: Image.asset(Assets.imagesBack, height: 45),
+                      ),
+                    ),
+                    //    SizedBox(height: 40),
                     // Priority Badge at top
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -93,12 +113,14 @@ class SosDetailScreen extends StatelessWidget {
                     ),
 
                     // SOS Item title
-                    MyText(
-                      text: model.subject,
-                      size: 16,
-                      textAlign: TextAlign.center,
-                      paddingTop: 20,
-                      paddingBottom: 10,
+                    Center(
+                      child: MyText(
+                        text: model.subject,
+                        size: 16,
+                        textAlign: TextAlign.center,
+                        paddingTop: 20,
+                        paddingBottom: 10,
+                      ),
                     ),
                   ],
                 ),

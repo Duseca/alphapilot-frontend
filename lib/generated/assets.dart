@@ -38,6 +38,14 @@ class Assets {
   /// assets/fonts/SF-Pro-Display-Ultralight.otf
   static const String fontsSFProDisplayUltralight = "assets/fonts/SF-Pro-Display-Ultralight.otf";
 
+  /// Assets for imagesApple
+  /// assets/images/apple.png
+  static const String imagesApple = "assets/images/apple.png";
+
+  /// Assets for imagesBack
+  /// assets/images/back.png
+  static const String imagesBack = "assets/images/back.png";
+
   /// Assets for imagesBathroom
   /// assets/images/bathroom.png
   static const String imagesBathroom = "assets/images/bathroom.png";
@@ -53,6 +61,10 @@ class Assets {
   /// Assets for imagesClock2
   /// assets/images/clock2.png
   static const String imagesClock2 = "assets/images/clock2.png";
+
+  /// Assets for imagesClockfill
+  /// assets/images/clockfill.png
+  static const String imagesClockfill = "assets/images/clockfill.png";
 
   /// Assets for imagesClose
   /// assets/images/close.png
@@ -70,9 +82,17 @@ class Assets {
   /// assets/images/fridget.png
   static const String imagesFridget = "assets/images/fridget.png";
 
+  /// Assets for imagesGoogle
+  /// assets/images/google.png
+  static const String imagesGoogle = "assets/images/google.png";
+
   /// Assets for imagesGriddel
   /// assets/images/griddel.png
   static const String imagesGriddel = "assets/images/griddel.png";
+
+  /// Assets for imagesHide
+  /// assets/images/hide.png
+  static const String imagesHide = "assets/images/hide.png";
 
   /// Assets for imagesIcon
   /// assets/images/Icon.png

@@ -1,3 +1,5 @@
+import 'package:alpha_pilot/view/widget/common_image_view_widget.dart';
+import 'package:alpha_pilot/view/widget/my_text_widget.dart';
 import 'package:bounce/bounce.dart';
 import 'package:alpha_pilot/const/app_sizes.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +46,7 @@ AppBar simpleAppBar({
     leading: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(height: topPad ?? 8),
+        SizedBox(height: topPad ?? 0),
         if (haveBackButton!)
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,10 +56,21 @@ AppBar simpleAppBar({
                 padding: const EdgeInsets.only(left: 0.0, bottom: 0),
                 child: GestureDetector(
                   onTap: onBackIconTap ?? () => Get.back(),
-                  child: Image.asset(
-                    backIcon ?? Assets.imagesLogo,
-                    height: height ?? 26,
-                    color: contentColor ?? kQuaternaryColor,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: kBlackColor.withOpacity(0.2),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                    child: Image.asset(
+                      backIcon ?? Assets.imagesBack,
+                      height: height ?? 45,
+                      color: contentColor ?? null,
+                    ),
                   ),
                 ),
               ),
