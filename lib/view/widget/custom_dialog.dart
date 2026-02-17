@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:alpha_pilot/view/widget/my_button.dart';
 import 'package:alpha_pilot/view/widgets/common_image_view_widget.dart';
 import 'package:alpha_pilot/view/widgets/simple_app_bar.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';

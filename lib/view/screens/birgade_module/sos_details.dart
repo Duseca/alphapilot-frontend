@@ -3,6 +3,7 @@ import 'package:alpha_pilot/const/app_sizes.dart';
 import 'package:alpha_pilot/const/app_styling.dart';
 import 'package:alpha_pilot/generated/assets.dart';
 import 'package:alpha_pilot/view/widget/Icon_title_subtitle.dart';
+import 'package:alpha_pilot/view/widget/action_button.dart';
 import 'package:alpha_pilot/view/widget/common_image_view_widget.dart';
 import 'package:alpha_pilot/view/widget/gradient_btn.dart';
 import 'package:alpha_pilot/view/widget/icon_text_row.dart';
@@ -14,6 +15,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
+// Default actions list
+final List<Map<String, dynamic>> defaultActions = [
+  {'label': 'Griddle', 'icon': Assets.imagesGriddel},
+  {'label': 'Bathroom', 'icon': Assets.imagesBathroom},
+  {'label': 'Fridge', 'icon': Assets.imagesFridget},
+  {'label': 'Beds', 'icon': Assets.imagesBed},
+  {'label': 'Floor', 'icon': Assets.imagesFloor},
+];
+
 class SosDetailScreen extends StatelessWidget {
   final SubjectSosModel model;
 
@@ -22,15 +32,6 @@ class SosDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RxBool isResolved = false.obs;
-
-    // Define the list of actions
-    final List<Map<String, dynamic>> actions = [
-      {'label': 'Griddle', 'icon': Assets.imagesGriddel},
-      {'label': 'Bathroom', 'icon': Assets.imagesBathroom},
-      {'label': 'Fridge', 'icon': Assets.imagesFridget},
-      {'label': 'Beds', 'icon': Assets.imagesBed},
-      {'label': 'Floor', 'icon': Assets.imagesFloor},
-    ];
 
     return Scaffold(
       //  appBar: simpleAppBar(bgColor: kPrimaryColor),
@@ -156,59 +157,12 @@ class SosDetailScreen extends StatelessWidget {
                         SizedBox(height: 15),
 
                         // Mission ID with status
-                        Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: roundedsr(
-                            color2: kGreyColor.withOpacity(0.5),
-                          ),
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          child: Column(
-                            children: [
-                              IconTitleSubtitle(
-                                path: Assets.imagesRight,
-                                iconheight: 25,
-                                title: model.title,
-                                size1: 18,
-                                trailing: Column(
-                                  spacing: 4,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    MyText(
-                                      text: 'Status',
-                                      lineHeight: 1,
-                                      size: 9,
-                                      weight: wlight,
-                                    ),
-                                    Obx(
-                                      () => TransparentContainer(
-                                        text: isResolved.value
-                                            ? 'Resolved'
-                                            : 'In Progress',
-                                        color1: isResolved.value
-                                            ? kMintGreen
-                                            : kBlueColor,
-                                        opacity: 1,
-                                        fontStyle: FontStyle.italic,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                              Wrap(
-                                spacing: 10,
-                                runSpacing: 10,
-                                alignment: WrapAlignment.center,
-                                children: List.generate(
-                                  actions.length,
-                                  (index) => _buildActionButton(
-                                    actions[index]['label'],
-                                    actions[index]['icon'],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                        MissionsWrap(
+                          isResolved: isResolved,
+                          title: model.title,
+
+                          actions: defaultActions, // Pass custom actions here
+                          // selectedIndices: selectedActions,
                         ),
 
                         MyText(
@@ -303,27 +257,92 @@ class SosDetailScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+}
 
-  Widget _buildActionButton(String label, String icon) {
+class MissionsWrap extends StatelessWidget {
+  final String? title;
+  final RxBool? isResolved;
+  final List<Map<String, dynamic>>? actions;
+  final Gradient? gradient;
+  final RxList<int>? selectedIndices;
+  final Function(int)? onActionTap;
+
+  const MissionsWrap({
+    super.key,
+    this.title,
+    this.isResolved,
+    this.actions,
+    this.gradient,
+    this.selectedIndices,
+    this.onActionTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final actionsList = actions ?? defaultActions;
+
     return Container(
-      width: 72,
-      height: 72,
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-      decoration: BoxDecoration(
-        gradient: appgrad,
-        borderRadius: BorderRadius.circular(15),
-      ),
+      padding: EdgeInsets.all(20),
+      decoration: roundedsr(color2: kGreyColor.withOpacity(0.5), radius: 20),
+      margin: EdgeInsets.symmetric(horizontal: 30),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CommonImageView(imagePath: icon, height: 40),
-          MyText(
-            text: label,
-            size: 14.5,
-            color: kQuaternaryColor,
-            maxLines: 1,
-            textOverflow: TextOverflow.ellipsis,
+          IconTitleSubtitle(
+            path: Assets.imagesRight,
+            iconheight: 25,
+            title: title ?? 'MH 100',
+            size1: 18,
+            trailing: Column(
+              spacing: 4,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MyText(text: 'Status', lineHeight: 1, size: 9, weight: wlight),
+                Obx(
+                  () => TransparentContainer(
+                    text: isResolved?.value ?? true
+                        ? 'Resolved'
+                        : 'In Progress',
+                    color1: isResolved?.value ?? true ? kMintGreen : kBlueColor,
+                    opacity: 1,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
+            ),
           ),
+          SizedBox(height: 20),
+          selectedIndices != null
+              ? Obx(
+                  () => Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    alignment: WrapAlignment.center,
+                    children: List.generate(
+                      actionsList.length,
+                      (index) => ActionButton(
+                        gradient: gradient ?? appgrad,
+                        label: actionsList[index]['label'],
+                        icon: actionsList[index]['icon'],
+                        isSelected: selectedIndices!.contains(index),
+                        onTap: () => onActionTap?.call(index),
+                      ),
+                    ),
+                  ),
+                )
+              : Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  alignment: WrapAlignment.center,
+                  children: List.generate(
+                    actionsList.length,
+                    (index) => ActionButton(
+                      gradient: gradient ?? appgrad,
+                      label: actionsList[index]['label'],
+                      icon: actionsList[index]['icon'],
+                      onTap: () => onActionTap?.call(index),
+                    ),
+                  ),
+                ),
         ],
       ),
     );

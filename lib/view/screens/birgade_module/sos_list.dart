@@ -23,32 +23,6 @@ class SosList extends StatelessWidget {
       {'title': 'Important', 'gradient': gradolive},
       {'title': 'Resolved', 'gradient': gradgreen},
     ];
-    final List<SubjectSosModel> sosList = [
-      SubjectSosModel(
-        id: "1",
-        title: "MH 100",
-        location: "Hotel A, Allée des Pins",
-        dateTime: DateTime(2026, 3, 6, 10, 0),
-        subject: "Subject SOS 1...............................",
-        priority: SosPriority.critical,
-      ),
-      SubjectSosModel(
-        id: "2",
-        title: "MH 101",
-        location: "Hotel A, Allée des Pins",
-        dateTime: DateTime(2026, 3, 6, 10, 0),
-        subject: "Subject SOS 2..................................",
-        priority: SosPriority.urgent,
-      ),
-      SubjectSosModel(
-        id: "2",
-        title: "MH 102",
-        location: "Hotel A, Allée des Pins",
-        dateTime: DateTime(2026, 3, 6, 10, 0),
-        subject: "Subject SOS 2..................................",
-        priority: SosPriority.important,
-      ),
-    ];
 
     return Scaffold(
       appBar: simpleAppBar(),
@@ -134,3 +108,30 @@ class SosList extends StatelessWidget {
     );
   }
 }
+
+final List<SubjectSosModel> sosList = [
+  SubjectSosModel(
+    id: "1",
+    title: "MH 100",
+    location: "Hotel A, Allée des Pins",
+    dateTime: DateTime(2026, 3, 6, 10, 0),
+    subject: "Subject SOS 1...............................",
+    priority: SosPriority.critical,
+  ),
+  SubjectSosModel(
+    id: "2",
+    title: "MH 101",
+    location: "Hotel A, Allée des Pins",
+    dateTime: DateTime(2026, 3, 6, 10, 0),
+    subject: "Subject SOS 2..................................",
+    priority: SosPriority.urgent,
+  ),
+  SubjectSosModel(
+    id: "2",
+    title: "MH 102",
+    location: "Hotel A, Allée des Pins",
+    dateTime: DateTime(2026, 3, 6, 10, 0),
+    subject: "Subject SOS 2..................................",
+    priority: SosPriority.important,
+  ),
+];
