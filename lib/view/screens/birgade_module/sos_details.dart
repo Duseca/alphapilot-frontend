@@ -260,12 +260,15 @@ class SosDetailScreen extends StatelessWidget {
 }
 
 class MissionsWrap extends StatelessWidget {
-  final String? title;
+  final String? title, status, icon;
   final RxBool? isResolved;
   final List<Map<String, dynamic>>? actions;
   final Gradient? gradient;
   final RxList<int>? selectedIndices;
   final Function(int)? onActionTap;
+  final double? padends, iconheight, size, itemextent;
+  final Widget? head;
+  final bool? isnewservice;
 
   const MissionsWrap({
     super.key,
@@ -275,6 +278,14 @@ class MissionsWrap extends StatelessWidget {
     this.gradient,
     this.selectedIndices,
     this.onActionTap,
+    this.padends,
+    this.head,
+    this.isnewservice,
+    this.status,
+    this.icon,
+    this.iconheight,
+    this.size,
+    this.itemextent,
   });
 
   @override
@@ -284,33 +295,42 @@ class MissionsWrap extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(20),
       decoration: roundedsr(color2: kGreyColor.withOpacity(0.5), radius: 20),
-      margin: EdgeInsets.symmetric(horizontal: 30),
+      margin: EdgeInsets.symmetric(horizontal: padends ?? 30),
       child: Column(
         children: [
-          IconTitleSubtitle(
-            path: Assets.imagesRight,
-            iconheight: 25,
-            title: title ?? 'MH 100',
-            size1: 18,
-            trailing: Column(
-              spacing: 4,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                MyText(text: 'Status', lineHeight: 1, size: 9, weight: wlight),
-                Obx(
-                  () => TransparentContainer(
-                    text: isResolved?.value ?? true
-                        ? 'Resolved'
-                        : 'In Progress',
-                    color1: isResolved?.value ?? true ? kMintGreen : kBlueColor,
-                    opacity: 1,
-                    fontStyle: FontStyle.italic,
-                  ),
+          head ??
+              IconTitleSubtitle(
+                path: icon ?? Assets.imagesRight,
+                iconheight: iconheight ?? 25,
+                title: title ?? 'MH 100',
+                size1: size ?? 18,
+
+                trailing: Column(
+                  spacing: 4,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    MyText(
+                      text: 'Status',
+                      lineHeight: 1,
+                      size: 9,
+                      weight: wlight,
+                    ),
+                    Obx(
+                      () => TransparentContainer(
+                        text: isResolved?.value ?? true
+                            ? status ?? 'Resolved'
+                            : status ?? 'In Progress',
+                        color1: isResolved?.value ?? true
+                            ? kMintGreen
+                            : kBlueColor,
+                        opacity: 1,
+                        fontStyle: FontStyle.italic,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20),
+              ),
+          head ?? SizedBox(height: 20),
           selectedIndices != null
               ? Obx(
                   () => Wrap(
@@ -320,6 +340,8 @@ class MissionsWrap extends StatelessWidget {
                     children: List.generate(
                       actionsList.length,
                       (index) => ActionButton(
+                        height: itemextent,
+                        isnewservce: isnewservice,
                         gradient: gradient ?? appgrad,
                         label: actionsList[index]['label'],
                         icon: actionsList[index]['icon'],
@@ -336,6 +358,8 @@ class MissionsWrap extends StatelessWidget {
                   children: List.generate(
                     actionsList.length,
                     (index) => ActionButton(
+                      height: itemextent,
+                      isnewservce: isnewservice,
                       gradient: gradient ?? appgrad,
                       label: actionsList[index]['label'],
                       icon: actionsList[index]['icon'],

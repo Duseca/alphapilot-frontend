@@ -11,7 +11,8 @@ class TransparentContainer extends StatelessWidget {
   final double? textSize, padends, padvertical, radius; // Nullable text size
   final Color? textColor; // Nullable text color
   final FontWeight? textWeight;
-  final FontStyle? fontStyle; // Nullable text weight
+  final FontStyle? fontStyle;
+  final TextAlign? align; // Nullable text weight
 
   const TransparentContainer({
     super.key,
@@ -26,6 +27,7 @@ class TransparentContainer extends StatelessWidget {
     this.padvertical,
     this.radius,
     this.fontStyle,
+    this.align,
   });
 
   @override
@@ -51,7 +53,7 @@ class TransparentContainer extends StatelessWidget {
           ? MyText(
               text: text!,
               fontStyle: fontStyle,
-
+              textAlign: align,
               size: textSize ?? 12, // Default size if null
               weight: textWeight ?? wregular, // Default weight if null
               color: textColor ?? kQuaternaryColor, // Default color if null

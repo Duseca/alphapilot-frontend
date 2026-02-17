@@ -21,7 +21,7 @@ const kbgColor = Color(0xffFBFBFB);
 const kRedEmber = Color(0xffE74C3C);
 const kMintGreen = Color(0xff10B981);
 const kErrorColor = Color(0xffFF0000);
-const kBlueColor = Color(0xff2563EB);
+const kBlueColor = Color(0xff0069E0);
 
 const kBlackColor = Color(0xff000000);
 const kRedColor = Color(0xffFF002E);

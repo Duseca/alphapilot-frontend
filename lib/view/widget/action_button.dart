@@ -12,6 +12,8 @@ class ActionButton extends StatelessWidget {
   final Gradient gradient;
   final VoidCallback? onTap;
   final bool isSelected;
+  final double? height;
+  final bool? isnewservce;
 
   const ActionButton({
     super.key,
@@ -20,6 +22,8 @@ class ActionButton extends StatelessWidget {
     required this.gradient,
     this.onTap,
     this.isSelected = false,
+    this.isnewservce,
+    this.height,
   });
 
   @override
@@ -27,8 +31,8 @@ class ActionButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 72,
-        height: 72,
+        width: height ?? 72,
+        height: height ?? 72,
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         decoration: BoxDecoration(
           gradient: isSelected
@@ -47,9 +51,17 @@ class ActionButton extends StatelessWidget {
               Expanded(
                 child: Center(
                   child: Image.asset(
-                    isSelected ? Assets.imagesTick : icon,
+                    isSelected
+                        ? isnewservce == true
+                              ? Assets.imagesNewser
+                              : Assets.imagesTick
+                        : icon,
                     height: 37,
-                    color: isSelected == true ? kMintGreen : null,
+                    color: isSelected == true
+                        ? isnewservce == true
+                              ? Color(0xff478BF9)
+                              : kMintGreen
+                        : null,
                   ),
                 ),
               ),
@@ -57,7 +69,9 @@ class ActionButton extends StatelessWidget {
                 width: Get.width,
                 decoration: isSelected == true
                     ? BoxDecoration(
-                        color: kMintGreen,
+                        color: isnewservce == true
+                            ? Color(0xff478BF9)
+                            : kMintGreen,
                         borderRadius: BorderRadius.vertical(
                           bottom: Radius.circular(15),
                         ),

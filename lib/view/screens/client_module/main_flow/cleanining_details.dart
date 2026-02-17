@@ -69,7 +69,12 @@ class CleaniningDetails extends StatelessWidget {
                   isResolved: false.obs,
 
                   onActionTap: (index) => {
-                    Get.to(() => UploadPicProof()),
+                    Get.to(
+                      () => UploadPicProof(
+                        path: defaultActions[index]['icon'],
+                        title: defaultActions[index]['label'],
+                      ),
+                    ),
                     if (selectedActions.contains(index))
                       {selectedActions.remove(index)}
                     else

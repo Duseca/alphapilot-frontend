@@ -2,6 +2,7 @@ import 'package:alpha_pilot/const/app_colors.dart';
 import 'package:alpha_pilot/const/app_sizes.dart';
 import 'package:alpha_pilot/const/app_styling.dart';
 import 'package:alpha_pilot/generated/assets.dart';
+import 'package:alpha_pilot/view/screens/client_module/request_service/new_service.dart';
 import 'package:alpha_pilot/view/widget/client_clean_tile.dart';
 import 'package:alpha_pilot/view/widget/common_image_view_widget.dart';
 import 'package:alpha_pilot/view/widget/gradient_btn.dart';
@@ -10,6 +11,8 @@ import 'package:alpha_pilot/view/widget/my_text_widget.dart';
 import 'package:alpha_pilot/view/widget/trans_container.dart';
 import 'package:alpha_pilot/view/widget/two_text_column.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:get/utils.dart';
 
 class ClientHome extends StatelessWidget {
   const ClientHome({super.key});
@@ -139,6 +142,9 @@ class ClientHome extends StatelessWidget {
               gradient: gradgreen,
               borderColor: kGreyColor,
               fontSize: 17,
+              onTap: () {
+                Get.to(() => NewService());
+              },
               borderWidth: 1,
             ),
           ],

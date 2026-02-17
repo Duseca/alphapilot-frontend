@@ -37,11 +37,16 @@ BoxDecoration rounded(Color color) {
   );
 }
 
-BoxDecoration roundedsr({Color? color, double? radius, Color? color2}) {
+BoxDecoration roundedsr({
+  Color? color,
+  double? radius,
+  Color? color2,
+  double? borderwidth,
+}) {
   return BoxDecoration(
     borderRadius: BorderRadius.circular(radius ?? 10),
     color: color ?? kPrimaryColor,
-    border: Border.all(color: color2 ?? kPrimaryColor),
+    border: Border.all(color: color2 ?? kPrimaryColor, width: borderwidth ?? 1),
     boxShadow: [
       BoxShadow(
         color: kBlackColor.withOpacity(0.1),
