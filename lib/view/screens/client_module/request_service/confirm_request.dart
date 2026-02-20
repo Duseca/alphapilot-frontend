@@ -15,22 +15,25 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
+final RxList<int> selectedActions = <int>[0, 1, 2, 3, 4].obs;
+
 class ConfirmRequest extends StatelessWidget {
-  const ConfirmRequest({super.key});
+  final bool? isagent;
+  const ConfirmRequest({super.key, this.isagent = F});
 
   @override
   Widget build(BuildContext context) {
-    final RxList<int> selectedActions = <int>[0, 1, 2, 3, 4].obs;
     return Scaffold(
       appBar: simpleAppBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          MyText(
-            text: 'The cleaning team has finished.',
-            paddingLeft: 20,
-            size: 18,
-          ),
+          if (isagent == false)
+            MyText(
+              text: 'The cleaning team has finished.',
+              paddingLeft: 20,
+              size: 18,
+            ),
           Expanded(
             child: ListView(
               padding: EdgeInsets.all(0),
@@ -71,34 +74,40 @@ class ConfirmRequest extends StatelessWidget {
                   isResolved: T.obs,
                   padends: 13,
                 ),
-                MyText(
-                  text: 'Progress',
-                  paddingTop: 20,
-                  size: 20,
-                  weight: wlight,
-                  textAlign: TextAlign.center,
-                ),
-                Center(
-                  child: TransparentContainer(
-                    text: '15 out of 15',
-                    opacity: 1,
-                    textSize: 20,
-                    color1: kBlackColor,
-                    padends: 20,
-                    radius: 100,
-                    padvertical: 0,
-                  ),
+                Column(
+                  children: [
+                    MyText(
+                      text: isagent == true ? 'Points Validated' : 'Progress',
+                      paddingTop: 20,
+                      size: 20,
+                      weight: wlight,
+                      textAlign: TextAlign.center,
+                    ),
+                    Center(
+                      child: TransparentContainer(
+                        text: '15 out of 15',
+                        opacity: 1,
+                        textSize: 20,
+                        color1: isagent == true ? kMintGreen : kBlackColor,
+                        padends: 20,
+                        radius: 100,
+                        padvertical: 0,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.all(30.0),
                   child: GradientButton(
-                    text: 'Validate the cleaning',
+                    text: isagent == true
+                        ? 'Complete the mission'
+                        : 'Validate the cleaning',
                     onTap: () => Get.to(() => Approved()),
                     fontSize: 22,
                     gradient: gradgreen,
                     borderWidth: 1,
-                    borderColor: kGreyColor,
+                    borderColor: isagent == true ? ktransparent : kGreyColor,
                     padding: EdgeInsets.all(10),
                   ),
                 ),

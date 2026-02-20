@@ -41,7 +41,9 @@ class RoleSelection extends StatelessWidget {
                 GradientButton(
                   text: 'AGENT PARTNER',
                   gradient: bluegrad,
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => PinLogin(role: 'Agent partner'.toUpperCase()));
+                  },
                 ),
                 SizedBox(height: 13),
                 GradientButton(

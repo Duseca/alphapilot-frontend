@@ -266,7 +266,16 @@ class MissionsWrap extends StatelessWidget {
   final Gradient? gradient;
   final RxList<int>? selectedIndices;
   final Function(int)? onActionTap;
-  final double? padends, iconheight, size, itemextent;
+  final double? padends,
+      iconheight,
+      size,
+      itemextent,
+      mhoriz,
+      headpadends,
+      wrapspacing,
+      fontsize,
+      iconsize,
+      radius;
   final Widget? head;
   final bool? isnewservice;
 
@@ -286,6 +295,12 @@ class MissionsWrap extends StatelessWidget {
     this.iconheight,
     this.size,
     this.itemextent,
+    this.mhoriz,
+    this.headpadends,
+    this.wrapspacing,
+    this.fontsize,
+    this.iconsize,
+    this.radius,
   });
 
   @override
@@ -293,54 +308,61 @@ class MissionsWrap extends StatelessWidget {
     final actionsList = actions ?? defaultActions;
 
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(mhoriz ?? 20),
       decoration: roundedsr(color2: kGreyColor.withOpacity(0.5), radius: 20),
       margin: EdgeInsets.symmetric(horizontal: padends ?? 30),
       child: Column(
         children: [
-          head ??
-              IconTitleSubtitle(
-                path: icon ?? Assets.imagesRight,
-                iconheight: iconheight ?? 25,
-                title: title ?? 'MH 100',
-                size1: size ?? 18,
-
-                trailing: Column(
-                  spacing: 4,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MyText(
-                      text: 'Status',
-                      lineHeight: 1,
-                      size: 9,
-                      weight: wlight,
-                    ),
-                    Obx(
-                      () => TransparentContainer(
-                        text: isResolved?.value ?? true
-                            ? status ?? 'Resolved'
-                            : status ?? 'In Progress',
-                        color1: isResolved?.value ?? true
-                            ? kMintGreen
-                            : kBlueColor,
-                        opacity: 1,
-                        fontStyle: FontStyle.italic,
+          Padding(
+            padding: EdgeInsets.only(top: headpadends ?? 0.0),
+            child:
+                head ??
+                IconTitleSubtitle(
+                  path: icon ?? Assets.imagesRight,
+                  iconheight: iconheight ?? 25,
+                  title: title ?? 'MH 100',
+                  size1: size ?? 18,
+                  padEnds: headpadends ?? 0,
+                  trailing: Column(
+                    spacing: 4,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      MyText(
+                        text: 'Status',
+                        lineHeight: 1,
+                        size: 9,
+                        weight: wlight,
                       ),
-                    ),
-                  ],
+                      Obx(
+                        () => TransparentContainer(
+                          text: isResolved?.value ?? true
+                              ? status ?? 'Resolved'
+                              : status ?? 'In Progress',
+                          color1: isResolved?.value ?? true
+                              ? kMintGreen
+                              : kBlueColor,
+                          opacity: 1,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-          head ?? SizedBox(height: 20),
+          ),
+          SizedBox(height: head == SizedBox() ? 0 : 20),
           selectedIndices != null
               ? Obx(
                   () => Wrap(
-                    spacing: 10,
+                    spacing: wrapspacing ?? 10,
                     runSpacing: 10,
                     alignment: WrapAlignment.center,
                     children: List.generate(
                       actionsList.length,
                       (index) => ActionButton(
                         height: itemextent,
+                        radius: radius,
+                        iconheight: iconsize,
+                        fontsize: fontsize,
                         isnewservce: isnewservice,
                         gradient: gradient ?? appgrad,
                         label: actionsList[index]['label'],
@@ -352,12 +374,15 @@ class MissionsWrap extends StatelessWidget {
                   ),
                 )
               : Wrap(
-                  spacing: 10,
+                  spacing: wrapspacing ?? 10,
                   runSpacing: 10,
                   alignment: WrapAlignment.center,
                   children: List.generate(
                     actionsList.length,
                     (index) => ActionButton(
+                      iconheight: iconheight,
+                      radius: radius,
+                      fontsize: fontsize,
                       height: itemextent,
                       isnewservce: isnewservice,
                       gradient: gradient ?? appgrad,
@@ -367,6 +392,7 @@ class MissionsWrap extends StatelessWidget {
                     ),
                   ),
                 ),
+          SizedBox(height: headpadends),
         ],
       ),
     );

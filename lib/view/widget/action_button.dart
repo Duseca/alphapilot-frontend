@@ -12,7 +12,7 @@ class ActionButton extends StatelessWidget {
   final Gradient gradient;
   final VoidCallback? onTap;
   final bool isSelected;
-  final double? height;
+  final double? height, iconheight, fontsize, radius;
   final bool? isnewservce;
 
   const ActionButton({
@@ -24,6 +24,9 @@ class ActionButton extends StatelessWidget {
     this.isSelected = false,
     this.isnewservce,
     this.height,
+    this.iconheight,
+    this.fontsize,
+    this.radius,
   });
 
   @override
@@ -31,8 +34,8 @@ class ActionButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: height ?? 72,
-        height: height ?? 72,
+        width: height ?? 89,
+        height: height ?? 89,
         padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
         decoration: BoxDecoration(
           gradient: isSelected
@@ -56,7 +59,7 @@ class ActionButton extends StatelessWidget {
                               ? Assets.imagesNewser
                               : Assets.imagesTick
                         : icon,
-                    height: 37,
+                    height: iconheight ?? 49,
                     color: isSelected == true
                         ? isnewservce == true
                               ? Color(0xff478BF9)
@@ -73,14 +76,14 @@ class ActionButton extends StatelessWidget {
                             ? Color(0xff478BF9)
                             : kMintGreen,
                         borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(15),
+                          bottom: Radius.circular(radius ?? 15),
                         ),
                       )
                     : null,
                 child: MyText(
                   textAlign: TextAlign.center,
                   text: label,
-                  size: 14.5,
+                  size: fontsize ?? 18,
                   paddingBottom: 1,
 
                   color: kQuaternaryColor,

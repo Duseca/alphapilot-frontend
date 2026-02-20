@@ -1,6 +1,8 @@
 import 'package:alpha_pilot/const/app_colors.dart';
 import 'package:alpha_pilot/controller/pin_login_controller.dart';
 import 'package:alpha_pilot/generated/assets.dart';
+import 'package:alpha_pilot/view/screens/agent_module/agent_missions.dart';
+import 'package:alpha_pilot/view/screens/birgade_module/sos_list.dart';
 import 'package:alpha_pilot/view/widget/common_image_view_widget.dart';
 import 'package:alpha_pilot/view/widget/custom_keypad.dart';
 import 'package:alpha_pilot/view/widget/gradient_btn.dart';
@@ -12,7 +14,8 @@ import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class PinLogin extends StatelessWidget {
-  const PinLogin({super.key});
+  final String? role;
+  const PinLogin({super.key, this.role});
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +49,10 @@ class PinLogin extends StatelessWidget {
                   ),
                   child: GradientButton(
                     hasshadow: F,
-                    text: 'FLYING SQUAD',
-                    gradient: gradred,
+                    text: role ?? 'FLYING SQUAD',
+                    gradient: role == 'Agent partner'.toUpperCase()
+                        ? bluegrad
+                        : gradred,
                   ),
                 ),
 
@@ -57,10 +62,22 @@ class PinLogin extends StatelessWidget {
                   color: kGreyColor,
                   textAlign: TextAlign.center,
                 ),
-                _PinIndicators(controller: controller),
+                _PinIndicators(
+                  controller: controller,
+                  color: role == 'Agent partner'.toUpperCase()
+                      ? bluegrad
+                      : gradred,
+                ),
                 const SizedBox(height: 60),
                 CustomKeypad(
-                  onKeyTap: controller.addDigit,
+                  onKeyTap: (v) {
+                    controller.addDigit(
+                      v,
+                      widget: role == 'Agent partner'.toUpperCase()
+                          ? AgentMissions()
+                          : SosList(),
+                    );
+                  },
                   onBackspace: controller.removeDigit,
                   onFingerprint: controller.handleFingerprint,
                 ),
@@ -76,8 +93,9 @@ class PinLogin extends StatelessWidget {
 // Separate widget for PIN indicators - only this rebuilds when PIN changes
 class _PinIndicators extends StatelessWidget {
   final PinLoginController controller;
+  final Gradient? color;
 
-  const _PinIndicators({required this.controller});
+  const _PinIndicators({required this.controller, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +115,11 @@ class _PinIndicators extends StatelessWidget {
               width: 30,
               height: 30,
               decoration: BoxDecoration(
-                color: isEntered || isCurrent ? kRedColor : Color(0xffC9C9C9),
+                gradient: isEntered || isCurrent
+                    ? color ?? gradred
+                    : LinearGradient(
+                        colors: [Color(0xffC9C9C9), Color(0xffC9C9C9)],
+                      ),
                 shape: BoxShape.circle,
               ),
             ),

@@ -7,13 +7,13 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 class PinLoginController extends GetxController {
   final RxString pin = ''.obs;
 
-  void addDigit(String digit) {
+  void addDigit(String digit, {Widget? widget}) {
     if (pin.value.length < 4) {
       pin.value += digit;
 
       if (pin.value.length == 4) {
         Future.delayed(const Duration(milliseconds: 200), () {
-          submitPin();
+          submitPin(widget: widget);
         });
       }
     }
@@ -25,11 +25,11 @@ class PinLoginController extends GetxController {
     }
   }
 
-  void submitPin() {
+  void submitPin({Widget? widget}) {
     // TODO: Add real authentication logic here.
     if (pin.value == "1234") {
       Get.snackbar("Success", "PIN verified");
-      Get.offAll(() => SosList());
+      Get.to(() => widget ?? SosList());
     } else {
       Get.snackbar(
         "Error",

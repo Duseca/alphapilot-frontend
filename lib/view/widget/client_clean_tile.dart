@@ -17,12 +17,14 @@ class ClientCleanTile extends StatelessWidget {
   final String title;
   final String location;
   final String dateTime;
+  final bool? isagent;
 
   final CleanStatus status;
 
   final int validatedPoints;
   final int totalPoints;
   final int incidents;
+  final VoidCallback? onTap;
   final int remainingMinutes;
   final int compliance; // percentage
 
@@ -38,6 +40,8 @@ class ClientCleanTile extends StatelessWidget {
     this.incidents = 0,
     this.remainingMinutes = 0,
     this.compliance = 0,
+    this.isagent,
+    this.onTap,
   });
 
   @override
@@ -45,9 +49,11 @@ class ClientCleanTile extends StatelessWidget {
     final config = CleanStatusConfig.fromStatus(status);
 
     return Bounce(
-      onTap: () {
-        Get.to(() => CleaniningDetails());
-      },
+      onTap:
+          onTap ??
+          () {
+            Get.to(() => CleaniningDetails());
+          },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -109,7 +115,7 @@ class ClientCleanTile extends StatelessWidget {
                   fontStyle: FontStyle.italic,
                 ),
 
-                if (status == CleanStatus.completed) ...[
+                if (status == CleanStatus.completed || isagent == false) ...[
                   const SizedBox(height: 4),
                   MyText(text: 'Compliance', size: 9, weight: wlight),
                   TransparentContainer(
@@ -131,10 +137,13 @@ class ClientCleanTile extends StatelessWidget {
 
                   const SizedBox(height: 4),
                   MyText(text: 'Remaining time', size: 9, weight: wlight),
-                  TransparentContainer(
+                  IconTextRow(
                     text: _formatTime(remainingMinutes),
-                    color1: kBlackColor,
-                    opacity: 1,
+                    expanded: false,
+                    decoration: rounded2r(kBlackColor, kBlackColor, 100),
+                    textcolor: kQuaternaryColor,
+                    iconpath: Assets.imagesClock2,
+
                     padends: 20,
                   ),
                 ],
@@ -164,7 +173,7 @@ class ClientCleanTile extends StatelessWidget {
   }
 }
 
-enum CleanStatus { completed, inProgress, todo }
+enum CleanStatus { completed, inProgress, todo, finished }
 
 class CleanStatusConfig {
   final String label;
@@ -185,7 +194,12 @@ class CleanStatusConfig {
           color: kMintGreen,
           icon: Assets.imagesTick2,
         );
-
+      case CleanStatus.finished:
+        return CleanStatusConfig(
+          label: 'Finised',
+          color: kMintGreen,
+          icon: Assets.imagesTick2,
+        );
       case CleanStatus.inProgress:
         return CleanStatusConfig(
           label: 'In progress',
